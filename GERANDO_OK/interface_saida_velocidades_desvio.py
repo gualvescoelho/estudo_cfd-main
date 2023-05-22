@@ -3,6 +3,7 @@ import os as op
 from tkinter import messagebox
 from tkinter import filedialog
 from tkinter import Button
+import matplotlib.pyplot as plt
 
 # nome_in = 1
 # qtd_coord = 2
@@ -13,12 +14,47 @@ class Tela:
     def __init__(self, master):
         self.nome_in = ""
         self.nome_dir_out = ""
+
+        def gerar_grafico():
+            nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
+
+            with open(nome_in, 'r') as f:
+                dados = f.read() 
+                dados_ = dados[1:].split('/')
+                is_y = False
+                dados_y = [1.1]
+                dados_x = [1.1]
+                
+            for d in dados_:
+                if d != 'y':
+                    if is_y and d != 'y':
+                        dados_y.append(float(d))
+                    else:
+                        dados_x.append(float(d))
+                else:
+                    is_y = True
+
+
+            plt.ylabel('Eixo Y')
+            plt.xlabel('Eixo X')
+            plt.title('Novo Gráfico')
+
+
+            print(dados_x[1:])
+            print(dados_y[1:])
+
+            plt.axis(xmin=0,xmax=(max(dados_x)*1.2),ymin=-0,ymax=(1+max(dados_y)))
+
+            plt.plot(dados_x[1:], dados_y[1:])
+            plt.show()
+
         def selecionar_arquivo():
             self.nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
 
         def selecionar_diretorio_saida():
             self.nome_dir_out = filedialog.askdirectory(initialdir="/", title="Selecione o diretorio de saida")
 
+        
         self.nossaTela = master
         self.lbl_nome_in = tk.Label(self.nossaTela, text="Informe o arquivo a ser lido: ")
         self.button_nome_in = Button(self.nossaTela, text="Selecionar arquivo", command=selecionar_arquivo)
@@ -59,6 +95,7 @@ class Tela:
         self.decisao_dp = tk.Frame(self.nossaTela)
 
         self.enviar = tk.Frame(self.nossaTela)
+        self.grafico = tk.Frame(self.nossaTela)
 
         # empacotamento
         # self.nome_in.pack()
@@ -70,6 +107,7 @@ class Tela:
         self.vel_graficos.pack()
         self.decisao_dp.pack()
         self.enviar.pack()
+        self.grafico.pack()
 
         # textos das perguntas nos frames
         self.lbl_qtd_coord = tk.Label(self.qtd_coord, text="Informe a quantidade de coordenadas: ")
@@ -160,6 +198,9 @@ class Tela:
         self.cb_dp_var_x.deselect()
         self.cb_dp_var_y.deselect()
         self.cb_dp_var_z.deselect()
+
+        self.grafico = tk.Button(self.grafico, text="Gerar grafico", command=gerar_grafico)
+        self.grafico.pack()
 
         self.confirmar = tk.Button(self.enviar, text="Confirmar dados", command=self.gerar_arq_saida)
         self.confirmar.pack(side=tk.BOTTOM, pady=10)
