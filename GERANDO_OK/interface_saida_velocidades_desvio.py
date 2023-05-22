@@ -14,6 +14,8 @@ class Tela:
     def __init__(self, master):
         self.nome_in = ""
         self.nome_dir_out = ""
+        self.nome_limpeza = ""
+        self.nome_limpo = ""
 
         def gerar_grafico():
             nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
@@ -51,8 +53,11 @@ class Tela:
         def selecionar_arquivo():
             self.nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
 
-        def selecionar_diretorio_saida():
-            self.nome_dir_out = filedialog.askdirectory(initialdir="/", title="Selecione o diretorio de saida")
+        def selecionar_arquivo_limpeza():
+            self.nome_limpeza = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
+            print(self.nome_limpeza[2:])
+            op.system("start limpeza_1.exe "+ self.nome_limpeza[2:] + " limpo")
+            # op.system("start limpeza_1.exe "+ self.nome_limpeza[1:]+" "+ self.nome_limpo)
 
         
         self.nossaTela = master
@@ -62,8 +67,8 @@ class Tela:
         self.lbl_nome_in.pack()
         self.button_nome_in.pack()
         
-        self.lbl_nome_dir_out = tk.Label(self.nossaTela, text="Informe o diretorio de saida: ")
-        self.button_nome_out = Button(self.nossaTela, text="Selecionar diretorio", command=selecionar_diretorio_saida)
+        self.lbl_nome_dir_out = tk.Label(self.nossaTela, text="Informe um arquivo para realizar a limpeza: ")
+        self.button_nome_out = Button(self.nossaTela, text="Selecionar arquivo", command=selecionar_arquivo_limpeza)
 
         self.lbl_nome_dir_out.pack()
         self.button_nome_out.pack()
