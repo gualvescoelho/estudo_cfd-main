@@ -206,11 +206,10 @@ class Tela:
         self.confirmar.pack(side=tk.BOTTOM, pady=10)
 
     def gerar_arq_saida(self):
-        print("oi ", self.nome_in[2:])
-        print("tchau ", self.nome_dir_out)
+
+# adicionar verificação de arquivo aqui e tirar do C
         with open(self.nome_in, 'r') as f:
             f.readline()
-            print("oia o f"+ str(f.readline()))
 
         op.system("mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
         # op.system("cd "+ self.nome_dir_out +" && mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
