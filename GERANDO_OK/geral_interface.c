@@ -3,11 +3,11 @@
 #include<math.h>
 
 /*
-	Gera arquivos de saida necessários para os outros processos, todos de uma vez com intuito de não precisar gerar novamente
-	adaptável para checkbutton, com fim de sair so o que o usuário deseja
+	Gera arquivos de saida necessï¿½rios para os outros processos, todos de uma vez com intuito de nï¿½o precisar gerar novamente
+	adaptï¿½vel para checkbutton, com fim de sair so o que o usuï¿½rio deseja
 */
 
-//------------------------------------------COMEÇO PARTE PROCESSAMENTO
+//------------------------------------------COMEï¿½O PARTE PROCESSAMENTO
 struct _DADOS_ 
 {
 	int coluna;
@@ -56,29 +56,29 @@ void retira_parenteses(int x); //processo a ser feito apos retirar os probes ou 
 void desvio_padrao(int qtd_colunas, int linhas, int itmin, int escolha, char nome_in[50], char nome_out[50], int l, int desejado); 
 double media_ponto(int ponto, int escolha);
 
-double somatorio(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin); //x = define se é x, y ou z
+double somatorio(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin); //x = define se ï¿½ x, y ou z
 double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin);
 double numerador(double soma_juntos, double somatoria_1, double somatoria_2, int sub);
 double denominador(double somatoria_1, double somatoria_2, double somatoria_11, double somatoria_22, int sub);
 void correlacao(int desejado_1, int desejado_2, int ponto_1, int ponto_2, int sub, char nome_in[50],int colunas, int linhas, int itmin, char nome_out[50]);
-double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2, int sub, char nome_in[50],int colunas, int linhas, int itmin); //x = define se é x, y ou z
+double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2, int sub, char nome_in[50],int colunas, int linhas, int itmin); //x = define se ï¿½ x, y ou z
 //FIM
 void menu();
 
 //ajuste interface
-void arq_saida_vel_media_x(char nome_out[50]); //parametro passado para verificar se vai ou não ser chamado
-void arq_saida_vel_media_y(char nome_out[50]);
-void arq_saida_vel_media_z(char nome_out[50]);
-void arq_saida_vel_media_todas(char nome_out[50]);
-void arq_saida_coordenadas(char nome_out[50]);
+void arq_saida_vel_media_x(char nome_out[250]); //parametro passado para verificar se vai ou nï¿½o ser chamado
+void arq_saida_vel_media_y(char nome_out[250]);
+void arq_saida_vel_media_z(char nome_out[250]);
+void arq_saida_vel_media_todas(char nome_out[250]);
+void arq_saida_coordenadas(char nome_out[250]);
 void arq_saida_grafico_x();
 void arq_saida_grafico_y();
 void arq_saida_grafico_z();
 
-//desvio padrao l = 0, desejado define se é x = 1, y = 2 ou z = 3
-void arq_saida_desvio_padrao(int qtd_coord, int linhas, int itmin, char nome_in[50], char nome_out_desvio_padrao[50], int l, int desejado);
+//desvio padrao l = 0, desejado define se ï¿½ x = 1, y = 2 ou z = 3
+void arq_saida_desvio_padrao(int qtd_coord, int linhas, int itmin, char nome_in[200], char nome_out_desvio_padrao[50], int l, int desejado);
 
-//correlação ja é a propria função em si, so precisando ser chamada
+//correlaï¿½ï¿½o ja ï¿½ a propria funï¿½ï¿½o em si, so precisando ser chamada
 //void correlacao(int desejado_1, int desejado_2, int ponto_1, int ponto_2, int sub, char nome_in[50],int colunas, int linhas, int itmin);
 
 /*
@@ -90,7 +90,7 @@ uso memoria ram: arquivos de saida (coordenada e velocidades:grafico ou saida ap
 
 	3- desvio padrao - nao precisa da memoria ram, tornar a parte
 	
-	4- serie temporal - software a parte, desde que não utiliza a leitura de dados
+	4- serie temporal - software a parte, desde que nï¿½o utiliza a leitura de dados
 	
 	5- correlacao - sera um software a parte, nao precisa de memoria ram
 */
@@ -108,9 +108,19 @@ void main(int argc, char *argv[])
 	
 	//calcular sub = qtd_linhas - itmin + 1
 	printf("%s", argv[1]);
-	leitura_arquivo(argv[1], qtd_coord, itmin, qtd_linhas);
+	leitura_arquivo("/Users/gustavo/OneDrive/Área de Trabalho/IFBA/estudo_cfd-main/GERANDO_OK/lido", qtd_coord, itmin, qtd_linhas);
 	
 	//saida vel obrigatoria, apenas escolher nome
+	//arq_saida_vel_media_x(("%s/vel_media/vel_media_x", argv[1]));
+	
+	//arq_saida_vel_media_y(("%s/vel_media/vel_media_y", argv[1]));
+
+	//arq_saida_vel_media_z(("%s/vel_media/vel_media_z", argv[1]));
+
+	//arq_saida_vel_media_todas(("%s/vel_media/vel_media_geral", argv[1]));
+	
+	//arq_saida_coordenadas(("%s/coordenadas/coordenadas", argv[1]));
+	
 	arq_saida_vel_media_x("vel_media/vel_media_x");
 	
 	arq_saida_vel_media_y("vel_media/vel_media_y");
@@ -146,7 +156,7 @@ void main(int argc, char *argv[])
 	limpar_dados(inicio_colunas); //fazer limpeza ao final automaticameente
 }
 
-void arq_saida_vel_media_x(char nome_out[50]) //parametro passado para verificar se vai ou não ser chamado
+void arq_saida_vel_media_x(char nome_out[250]) //parametro passado para verificar se vai ou nï¿½o ser chamado
 {
 	struct _DADOS_ *aux;
 	aux = inicio_colunas;
@@ -163,7 +173,7 @@ void arq_saida_vel_media_x(char nome_out[50]) //parametro passado para verificar
 	fclose(arq);
 }
 
-void arq_saida_vel_media_y(char nome_out[50]) //parametro passado para verificar se vai ou não ser chamado
+void arq_saida_vel_media_y(char nome_out[50]) //parametro passado para verificar se vai ou nï¿½o ser chamado
 {
 	struct _DADOS_ *aux;
 	aux = inicio_colunas;
@@ -180,7 +190,7 @@ void arq_saida_vel_media_y(char nome_out[50]) //parametro passado para verificar
 	fclose(arq);
 }
 
-void arq_saida_vel_media_z(char nome_out[50]) //parametro passado para verificar se vai ou não ser chamado
+void arq_saida_vel_media_z(char nome_out[50]) //parametro passado para verificar se vai ou nï¿½o ser chamado
 {
 	struct _DADOS_ *aux;
 	aux = inicio_colunas;
@@ -363,8 +373,8 @@ double denominador(double somatoria_1, double somatoria_2, double somatoria_11, 
 	return denominador_final;
 }
 
-double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2, int sub, char nome_in[50],int colunas, int linhas, int itmin) //x = define se é x, y ou z
-{ //fazer a operação com eles lidos separadamente!!! corrigir esse erro
+double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2, int sub, char nome_in[50],int colunas, int linhas, int itmin) //x = define se ï¿½ x, y ou z
+{ //fazer a operaï¿½ï¿½o com eles lidos separadamente!!! corrigir esse erro
 	FILE *arq;
 	double soma = 0, c_x = 0, c_y = 0, c_z = 0, aux = 0, val_1 = 0, val_2 = 0;
 	float tempo = 0, x = 0, y = 0, z = 0;
@@ -372,7 +382,7 @@ double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2
 	
 	arq = fopen(nome_in,"r+b");
 	
-	if(ponto_1 > ponto_2) //garante que o ponto 1 é menor que o 2
+	if(ponto_1 > ponto_2) //garante que o ponto 1 ï¿½ menor que o 2
 	{
 		aux2 = ponto_2;
 		ponto_2 = ponto_1;
@@ -384,7 +394,7 @@ double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2
 	fscanf(arq,"%f %f %f", &x, &y, &z);
 	} //para a leitura apos as coordenadas
   	
-	for(i = 2; i < linhas + 2; i++) //garante que vai parar quando chegar no final do arquivo e começar a partir do itmin considerado
+	for(i = 2; i < linhas + 2; i++) //garante que vai parar quando chegar no final do arquivo e comeï¿½ar a partir do itmin considerado
 	{	
 	fscanf(arq,"%f",&tempo); //le o tempo inicial
 			
@@ -396,7 +406,7 @@ double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2
 			{
 				if(qtd_colunas == ponto_1) //seleciona o primeiro ponto em questao
 				{		
-					switch(desejado_1) //seleciona se é x, y ou z
+					switch(desejado_1) //seleciona se ï¿½ x, y ou z
 					{
 						case 1:
 							val_1 = c_x;
@@ -438,7 +448,7 @@ double somatorio_juntos(int desejado_1, int desejado_2, int ponto_1, int ponto_2
 	return soma;
 }
 
-double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin) //x = define se é x, y ou z
+double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin) //x = define se ï¿½ x, y ou z
 {
 	FILE *arq;
 	double soma = 0, media = 0, c_x = 0, c_y = 0, c_z = 0, aux = 0;
@@ -462,7 +472,7 @@ double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],i
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -489,7 +499,7 @@ double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],i
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -516,7 +526,7 @@ double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],i
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -538,7 +548,7 @@ double somatorio_quadrado(int desejado, int escolha, int sub, char nome_in[50],i
 	return soma;
 }
 
-double somatorio(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin) //x = define se é x, y ou z
+double somatorio(int desejado, int escolha, int sub, char nome_in[50],int colunas, int linhas, int itmin) //x = define se ï¿½ x, y ou z
 {
 	FILE *arq;
 	double soma = 0, media = 0, c_x = 0, c_y = 0, c_z = 0, aux = 0;
@@ -562,7 +572,7 @@ double somatorio(int desejado, int escolha, int sub, char nome_in[50],int coluna
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -588,7 +598,7 @@ double somatorio(int desejado, int escolha, int sub, char nome_in[50],int coluna
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -614,7 +624,7 @@ double somatorio(int desejado, int escolha, int sub, char nome_in[50],int coluna
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -688,7 +698,7 @@ void desvio_padrao(int colunas, int linhas, int itmin, int escolha, char nome_in
 	float sub = 0, tempo = 0, x = 0, y = 0, z = 0;
 	int i = 0, qtd_colunas = 0;
 	
-	sub = linhas - itmin + 1; //n no desvio padrão	
+	sub = linhas - itmin + 1; //n no desvio padrï¿½o	
 	
 	arq = fopen(nome_in,"r+b");
 	arq_out = fopen(nome_out,"a+b");
@@ -713,7 +723,7 @@ void desvio_padrao(int colunas, int linhas, int itmin, int escolha, char nome_in
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -740,7 +750,7 @@ void desvio_padrao(int colunas, int linhas, int itmin, int escolha, char nome_in
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -767,7 +777,7 @@ void desvio_padrao(int colunas, int linhas, int itmin, int escolha, char nome_in
 			
 				for(qtd_colunas = 0; qtd_colunas < colunas;  qtd_colunas++) //leitura das colunas
 				{	
-					if(i > itmin) //pular endereços indesejados
+					if(i > itmin) //pular endereï¿½os indesejados
 					{
 						fscanf(arq,"%lf %lf %lf",&c_x, &c_y, &c_z);	
 						
@@ -821,7 +831,7 @@ double media_ponto(int ponto, int decisao)
 }
 
 
-void leitura_arquivo(char nome_in[50], int qtd_coord, int itmin, int qtd_linhas) 
+void leitura_arquivo(char nome_in[200], int qtd_coord, int itmin, int qtd_linhas) 
 {
 	FILE *arq;
 	float x, y, z, tempo;

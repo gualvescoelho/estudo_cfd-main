@@ -9,24 +9,28 @@ from tkinter import Button
 # itmin = 3
 # qtd_linhas = 4
 
-def selecionar_arquivo(nome_in):
-    nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
-    return nome_in
-    # Faça algo com o arquivo selecionado, como exibir o nome ou realizar alguma operação com ele
-
 class Tela:
     def __init__(self, master):
         self.nome_in = ""
+        self.nome_dir_out = ""
         def selecionar_arquivo():
             self.nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
+
+        def selecionar_diretorio_saida():
+            self.nome_dir_out = filedialog.askdirectory(initialdir="/", title="Selecione o diretorio de saida")
 
         self.nossaTela = master
         self.lbl_nome_in = tk.Label(self.nossaTela, text="Informe o arquivo a ser lido: ")
         self.button_nome_in = Button(self.nossaTela, text="Selecionar arquivo", command=selecionar_arquivo)
 
-
         self.lbl_nome_in.pack()
         self.button_nome_in.pack()
+        
+        self.lbl_nome_dir_out = tk.Label(self.nossaTela, text="Informe o diretorio de saida: ")
+        self.button_nome_out = Button(self.nossaTela, text="Selecionar diretorio", command=selecionar_diretorio_saida)
+
+        self.lbl_nome_dir_out.pack()
+        self.button_nome_out.pack()
 
         self.vel_var_x = tk.StringVar()
         self.vel_var_y = tk.StringVar()
@@ -161,17 +165,21 @@ class Tela:
         self.confirmar.pack(side=tk.BOTTOM, pady=10)
 
     def gerar_arq_saida(self):
-        print("oi ", self.nome_in)
+        print("oi ", self.nome_in[2:])
+        print("tchau ", self.nome_dir_out)
         with open(self.nome_in, 'r') as f:
             f.readline()
+            print("oia o f"+ str(f.readline()))
 
-        op.system("mkdir vel_media")
-        op.system("mkdir coordenadas")
-        op.system("mkdir vel_media_grafico")
-        op.system("mkdir desvios_padrao")
+        op.system("mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
+        # op.system("cd "+ self.nome_dir_out +" && mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
+        # op.system("mkdir /" + self.nome_dir_out + "/vel_media")
+        # op.system("mkdir /" + self.nome_dir_out + "/coordenadas")
+        # op.system("mkdir /" + self.nome_dir_out + "/vel_media_grafico")
+        # op.system("mkdir /" + self.nome_dir_out + "/desvios_padrao")
         op.system(
-            "start geral_interface.exe " + self.nome_in + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
-        messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
+            "start geral_interface.exe " + self.nome_in[:2] + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get()+" "+self.nome_dir_out)
+        # messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
 
 janelaRaiz = tk.Tk()
 
