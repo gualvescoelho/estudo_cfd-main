@@ -1,0 +1,4 @@
+
+
+def checkbutton(text_in):
+    tk.Checkbutton(self.vel_graficos, text= text_in, variable=self.graf_var_x, offvalue="0", onvalue="1")
