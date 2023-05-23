@@ -56,7 +56,8 @@ class Tela:
         def selecionar_arquivo_limpeza():
             self.nome_limpeza = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
             print(self.nome_limpeza[2:])
-            op.system("start limpeza_1.exe "+ self.nome_limpeza[2:] + " limpo")
+            # op.system("start limpeza_1.exe "+ self.nome_limpeza[3:] + " limpo")
+            op.system("start limpeza_1.exe /Users/gustavo/OneDrive/IFBA_2021/Estudo ferias/CFD PROJETO/Desenvolvimentos/complexo/grafico_python/U.txt limpo")
             # op.system("start limpeza_1.exe "+ self.nome_limpeza[1:]+" "+ self.nome_limpo)
 
         
@@ -224,7 +225,7 @@ class Tela:
         # op.system("mkdir /" + self.nome_dir_out + "/desvios_padrao")
         op.system(
             "start geral_interface.exe " + self.nome_in[:2] + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get()+" "+self.nome_dir_out)
-        # messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
+        messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
 
 janelaRaiz = tk.Tk()
 

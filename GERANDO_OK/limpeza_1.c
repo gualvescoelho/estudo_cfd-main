@@ -29,6 +29,7 @@ void retira_parenteses(int x); //processo a ser feito apos retirar os probes ou 
 void main(int argc, char *argv[])
 {
 	ler_caracteres(argv[1], argv[2]); //[1] = nome do arquivo q vai ser lido, [2] arquivo de saida
+	return;
 }
 
 //COMECO PARTE LIMPA TEXTO
