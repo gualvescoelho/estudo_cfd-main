@@ -25,7 +25,7 @@ class Tela:
             if f:
                 return True
             
-            return False
+            return True
 
 
 
@@ -234,10 +234,10 @@ class Tela:
     def gerar_arq_saida(self):
 
 # adicionar verificação de arquivo aqui e tirar do C
-        with open(self.nome_in, 'r') as f:
-            f.readline()
+        # with open(self.nome_in, 'r') as f:
+        #     f.readline()
 
-        print(self.nome_in[2:])
+        # print(self.nome_in[2:])
 
         op.system("mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
         # op.system("cd "+ self.nome_dir_out +" && mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
@@ -246,7 +246,7 @@ class Tela:
         # op.system("mkdir /" + self.nome_dir_out + "/vel_media_grafico")
         # op.system("mkdir /" + self.nome_dir_out + "/desvios_padrao")
         op.system(
-            "start geral_interface.exe limpo " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
+            "start geral_interface.exe saida " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
             # "start geral_interface.exe " + self.nome_in[2:] + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
         messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
 
