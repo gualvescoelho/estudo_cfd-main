@@ -16,6 +16,7 @@ class Tela:
         self.nome_dir_out = ""
         self.nome_limpeza = ""
         self.nome_limpo = ""
+        self.diretorio_out = ""
 
         def existe_arquivo(file):
             with open(file, 'r') as f:
@@ -28,7 +29,7 @@ class Tela:
             return True
 
 
-        # adicionar mais de um gráfico ao mesmo tempo
+
         def gerar_grafico():
             nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
 
@@ -53,10 +54,6 @@ class Tela:
             plt.xlabel('Eixo X')
             plt.title('Novo Gráfico')
 
-
-            print(dados_x[1:])
-            print(dados_y[1:])
-
             # plt.axis(xmin=0,xmax=(max(dados_x)*1.2),ymin=-0,ymax=(1+max(dados_y)))
 
             plt.plot(dados_x[1:], dados_y[1:])
@@ -65,18 +62,41 @@ class Tela:
         def selecionar_arquivo():
             self.nome_in = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
 
+        def gerar_arq_saida():
+            # adicionar verificação de arquivo aqui e tirar do C
+            # with open(self.nome_in, 'r') as f:
+            #     f.readline()
+
+            # print(self.nome_in[2:])
+
+            self.diretorio_out = filedialog.askdirectory(initialdir="/", title="Selecione um diretório")
+
+            self.diretorio_out = self.diretorio_out.replace('/','\\')
+            self.diretorio_out = "C:\\\\" + self.diretorio_out[2:]
+
+            print(self.diretorio_out)
+            # op.system("cd " + self.diretorio_out)
+            # op.system("mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
+            # op.system("mkdir "+ self.nome_dir_out + "/vel_media && mkdir "+ self.nome_dir_out + "/coordenadas && mkdir "+ self.nome_dir_out + "/vel_media_grafico && mkdir "+ self.nome_dir_out + "/desvios_padrao")
+            # op.system("cd "+ self.nome_dir_out + " && mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
+            op.system("mkdir " + self.diretorio_out + "\\vel_media")
+            op.system("mkdir " + self.diretorio_out + "\\coordenadas")
+            op.system("mkdir " + self.diretorio_out + "\\vel_media_grafico")
+            op.system("mkdir " + self.diretorio_out + "\\desvios_padrao")
+            op.system(
+                "start geral_interface.exe " + self.nome_in[2:] + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get()+" "+self.diretorio_out)
+                # "start geral_interface.exe " + self.nome_in[2:] + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
+            # messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
+
         def selecionar_arquivo_limpeza():
             try:
                 self.nome_limpeza = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo")
                 if(existe_arquivo(self.nome_limpeza)):
-                    # op.system("start limpeza_1.exe "+ self.nome_limpeza)
-                    op.system("start limpeza_1.exe Users/gustavo/OneDrive/IFBA_2021/'Estudo ferias'/'CFD PROJETO'/Desenvolvimentos/complexo/grafico_python/U.txt")
-                
+                    op.system("start limpeza_1.exe "+ self.nome_limpeza)
             except:
                 messagebox.showinfo("Caixa de mensagem", "Nenhum arquivo selecionado!")
 
-            print(self.nome_limpeza[2:])
-            # op.system("start limpeza_1.exe "+ self.nome_limpeza[3:] + " limpo")
+            op.system("start limpeza_1.exe "+ self.nome_limpeza + " limpo")
             # op.system("start limpeza_1.exe /Users/gustavo/OneDrive/IFBA_2021/Estudo ferias/CFD PROJETO/Desenvolvimentos/complexo/grafico_python/U.txt limpo")
             # op.system("start limpeza_1.exe "+ self.nome_limpeza[1:]+" "+ self.nome_limpo)
 
@@ -228,28 +248,10 @@ class Tela:
         self.grafico = tk.Button(self.grafico, text="Gerar grafico", command=gerar_grafico)
         self.grafico.pack()
 
-        self.confirmar = tk.Button(self.enviar, text="Confirmar dados", command=self.gerar_arq_saida)
+        self.confirmar = tk.Button(self.enviar, text="Confirmar dados", command=gerar_arq_saida)
         self.confirmar.pack(side=tk.BOTTOM, pady=10)
 
-    def gerar_arq_saida(self):
-
-# adicionar verificação de arquivo aqui e tirar do C
-        # with open(self.nome_in, 'r') as f:
-        #     f.readline()
-
-        # print(self.nome_in[2:])
-
-        op.system("mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
-        # op.system("cd "+ self.nome_dir_out +" && mkdir vel_media && mkdir coordenadas && mkdir vel_media_grafico && mkdir desvios_padrao")
-        # op.system("mkdir /" + self.nome_dir_out + "/vel_media")
-        # op.system("mkdir /" + self.nome_dir_out + "/coordenadas")
-        # op.system("mkdir /" + self.nome_dir_out + "/vel_media_grafico")
-        # op.system("mkdir /" + self.nome_dir_out + "/desvios_padrao")
-        op.system(
-            "start geral_interface.exe saida " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
-            # "start geral_interface.exe " + self.nome_in[2:] + " " + self.entrada_qtd_coord.get() + " " + self.entrada_itmin.get() + " " + self.entrada_qtd_linhas.get()+" "+self.vel_var_x.get()+" "+self.vel_var_y.get()+" "+self.vel_var_z.get()+" "+self.vel_geral.get()+" "+self.coordenadas_var.get()+" "+self.graf_var_x.get()+" "+self.graf_var_y.get()+" "+self.graf_var_z.get()+" "+self.dp_var_x.get()+" "+self.dp_var_y.get()+" "+self.dp_var_z.get())
-        messagebox.showinfo("Caixa de mensagem", "Arquivos gerados e prontos para estudo!\nVerifique as pastas novas e renomeie os arquivos!")
-
+    
 janelaRaiz = tk.Tk()
 
 Tela(janelaRaiz)
