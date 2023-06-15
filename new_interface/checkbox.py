@@ -6,12 +6,15 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QVBoxLayout,
     QWidget,
+    QFileDialog,
     QLabel
 )
 
 from drag_drop import DragDropWidget as dp
 from button import button
 
+# perguntar aonde salvar o arquivo ao confirmar
+# ler as coordenadas e quantidade de linhas automaticamente e pgtar o itmin
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -24,7 +27,8 @@ class MainWindow(QMainWindow):
         self.calling_string = []
         self.button = button()
 
-        self.drag_drop()
+        self.layout.addWidget(self.button.drag_drop())
+
         self.creation_checkbox()
         self.layout.addWidget(self.button)
 
@@ -56,13 +60,14 @@ class MainWindow(QMainWindow):
     def show_values(self):
         self.calling_string = []
         for value in self.checkboxx:
-            self.calling_string.append(value.isChecked())
+            self.calling_string.append(int(value.isChecked()))
         
         self.str_values()
 
     def str_values(self):
         values = str(self.calling_string)
         print(values)
+        return values
 
     def show_state(self, state):
         print(state == Qt.CheckState.Checked.value)
@@ -90,13 +95,11 @@ class MainWindow(QMainWindow):
         title.setText(text)
         self.layout.addWidget(title)
 
-    def drag_drop(self):
-        dragdrop_widget = dp()
-        self.layout.addWidget(dragdrop_widget)
+    
 
     def confirm_button(self):
         self.button = button()
-        self.layout.addLayout(self.button)
+        self.layout.addLayout(self.button, self.str_values)
 
 app = QApplication(sys.argv)
 window = MainWindow()

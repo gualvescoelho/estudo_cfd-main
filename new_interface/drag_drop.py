@@ -8,6 +8,7 @@ class DragDropWidget(QWidget):
         super().__init__()
 
         self.paths = []
+        self.urls = []
         self.setWindowTitle("Informe os arquivos a serem utilizados")
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -21,16 +22,22 @@ class DragDropWidget(QWidget):
 
         self.setAcceptDrops(True)
 
-    def dragEnterEvent(self, event: QDragEnterEvent):
-        if event.mimeData().hasUrls():
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls() or event.mimeData().hasText():
             event.acceptProposedAction()
 
-    def dropEvent(self, event: QDropEvent):
+    def dropEvent(self, event):
         if event.mimeData().hasUrls():
             urls = event.mimeData().urls()
-            file_path = urls[0].toLocalFile()
-            self.label.setText(f"Arquivo: {file_path}")
-            paths.append(file_path)
+            for url in urls:
+                self.urls.append(url.toLocalFile())
+                print("Arquivo arrastado:", url.toLocalFile())
+                self.label.setText(f"Arquivo: {url.toLocalFile()}")
+        elif event.mimeData().hasText():
+            text = event.mimeData().text()
+            print("Texto arrastado:", text)
+
+        print("urls1", self.urls)
 
     def get_paths():
         return paths
