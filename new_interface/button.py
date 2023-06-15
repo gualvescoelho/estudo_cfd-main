@@ -15,25 +15,24 @@ class button(QPushButton):
         button.clicked.connect(self.on_button_clicked)
 
     # Método de slot para lidar com o clique no botão
-    def on_button_clicked(self, string):
-        print(self.dragdrop_widget.urls)
+    def on_button_clicked(self):
+
         self.open_dialog()
+        
         for url in self.dragdrop_widget.urls:
-
-            path = '"' + url + '"' + " " + '"' + self.diretorio_saida +"\\"+ op.path.basename(url) + '"'
-
-            print(
-                "start limpeza_1.exe " + path
-            )
-            op.system(
-                "start limpeza_1.exe " + path
-            )
+            self.limpeza(url)
 
     def open_dialog(self):
         options = QFileDialog.Options()
         directory = QFileDialog.getExistingDirectory(self, "Selecionar Diretório de Saída", options=options)
         if directory:
             self.diretorio_saida = directory
+
+    def limpeza(self, url):
+        path = '"' + url + '"' + " " + '"' + self.diretorio_saida +"\\"+ op.path.basename(url) + '"'
+        op.system(
+            "start limpeza_1.exe " + path
+        )
 
     def drag_drop(self):
         self.dragdrop_widget = dp()

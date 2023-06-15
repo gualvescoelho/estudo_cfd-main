@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
     QFileDialog,
+    QPushButton,
     QLabel
 )
 
@@ -33,6 +34,7 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.button)
 
         self.widget = QWidget()
+        
         self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
 
@@ -68,7 +70,7 @@ class MainWindow(QMainWindow):
         values = str(self.calling_string)
         print(values)
         return values
-
+    
     def show_state(self, state):
         print(state == Qt.CheckState.Checked.value)
         print(state)
@@ -94,8 +96,6 @@ class MainWindow(QMainWindow):
         title = QLabel()
         title.setText(text)
         self.layout.addWidget(title)
-
-    
 
     def confirm_button(self):
         self.button = button()
