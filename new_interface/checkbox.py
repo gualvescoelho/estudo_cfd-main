@@ -14,8 +14,9 @@ from PySide6.QtWidgets import (
 from drag_drop import DragDropWidget as dp
 from button import button
 
-# perguntar aonde salvar o arquivo ao confirmar
+# verificar se o arquivo veio limpo ou sujo
 # ler as coordenadas e quantidade de linhas automaticamente e pgtar o itmin
+# contar a quantidade coordenadas quando nao tiver #
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -101,7 +102,7 @@ class MainWindow(QMainWindow):
         self.button = button()
         self.layout.addLayout(self.button, self.str_values)
 
-app = QApplication(sys.argv)
+app = QApplication(sys.argv)    
 window = MainWindow()
 window.show()
 app.exec()

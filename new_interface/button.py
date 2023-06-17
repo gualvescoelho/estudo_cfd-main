@@ -20,7 +20,8 @@ class button(QPushButton):
         self.open_dialog()
         
         for url in self.dragdrop_widget.urls:
-            self.limpeza(url)
+            # self.limpeza(url)
+            self.read_file(url)
 
     def open_dialog(self):
         options = QFileDialog.Options()
@@ -34,9 +35,33 @@ class button(QPushButton):
             "start limpeza_1.exe " + path
         )
 
+    def processing(self, string, qtd_coord, itmin):
+        
+        op.system(
+            "start geral_interface " + string
+        )
+
     def drag_drop(self):
         self.dragdrop_widget = dp()
         return self.dragdrop_widget
         
-    def file_name(string):
-        return string.spl
+    def read_file(self, url):
+        with open(url, 'r') as arquivo:
+
+            # informa o primeiro caracter do arquivo e volta ao inicio com fim de verificar as linhas
+            first = arquivo.read(1)
+            arquivo.seek(0)
+            
+            read = arquivo.read()
+            qtd_coord = read.count('#') - 1
+            arquivo.seek(0)
+
+            # retornar a quantidade de iterações e subtrair pela quantidade de coordenadas
+            len = arquivo.readlines()
+        
+        size = int(len.__len__()) - int(qtd_coord) - 2
+
+        # Imprimir os caracteres lidos
+        print(qtd_coord)
+        print(first)
+        print(size)
