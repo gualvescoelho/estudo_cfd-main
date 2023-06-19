@@ -4,19 +4,15 @@ from drag_drop import DragDropWidget as dp
 
 # Subclasse QMainWindow para criar a janela principal da aplicação
 class button(QPushButton):
-    def __init__(self, values):
+    def __init__(self, parent):
         super().__init__()
-        print("values no button", values)
-        self.values = values
-        # Cria um botão
-        button = QPushButton("Confirmar", self)
 
-        # Conecta o sinal clicked() do botão a um slot (método) chamado on_button_clicked
-        button.clicked.connect(self.on_button_clicked)
+    def creation_button(self, parent):
+        button = QPushButton("Confirmar", self)
+        button.clicked.connect(parent.confirm)
 
     # Método de slot para lidar com o clique no botão
-    def on_button_clicked(self):
-
+    def process(self, parent):
         self.open_dialog()
         
         for url in self.dragdrop_widget.urls:
@@ -27,7 +23,7 @@ class button(QPushButton):
             # if self.first == '#':
             #     self.limpeza(url)
 
-            self.processing(url, str(self.qnt_coord), '200', )
+            self.processing(url, str(self.qnt_coord), '200', parent.values)
 
 
     def open_dialog(self):
@@ -43,8 +39,8 @@ class button(QPushButton):
         )
 
     def processing(self, url, qtd_coord, itmin, values):
-        values = ''.join(self.values)
-        string = 'start geral_interface"' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
+        print("self ", values)
+        string = 'start geral_interface "' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
         print(string)
         # op.system(
         #     "start geral_interface " + string

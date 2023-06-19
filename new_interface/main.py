@@ -4,6 +4,10 @@ from checkbox import checkbox
 from button import button
 
 class MainWindow(QMainWindow):
+    
+    def confirm(self):
+         self.button.process(self)
+
     def __init__(self):
         super().__init__()
         # Layout principal
@@ -12,10 +16,11 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Página Principal")
 
         self.checkbox = checkbox()
-        self.button = button(self.checkbox.values)
+        self.button = button(self)
 
         self.layout.addWidget(self.button.drag_drop())
 
+        self.button.creation_button(self)
         self.checkbox.creation_checkbox(self)
 
         self.layout.addWidget(self.checkbox)
@@ -34,6 +39,7 @@ class MainWindow(QMainWindow):
             for value in self.checkboxx:
                 self.values += str(int(value.isChecked()))+" "
                 self.calling_string.append(int(value.isChecked()))
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
