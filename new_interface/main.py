@@ -8,14 +8,15 @@ class MainWindow(QMainWindow):
         super().__init__()
         # Layout principal
         self.layout = QVBoxLayout()
-
-
+        self.checkboxx = []
         self.setWindowTitle("Página Principal")
 
         self.checkbox = checkbox()
         self.button = button(self.checkbox.values)
 
         self.layout.addWidget(self.button.drag_drop())
+
+        self.checkbox.creation_checkbox(self)
 
         self.layout.addWidget(self.checkbox)
         
@@ -26,6 +27,13 @@ class MainWindow(QMainWindow):
         widget.setLayout(self.layout)
 
         self.setCentralWidget(widget)
+
+    def show_values(self):
+            self.values = ''
+            self.calling_string = []
+            for value in self.checkboxx:
+                self.values += str(int(value.isChecked()))+" "
+                self.calling_string.append(int(value.isChecked()))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -6,7 +6,7 @@ from drag_drop import DragDropWidget as dp
 class button(QPushButton):
     def __init__(self, values):
         super().__init__()
-        print("values", values)
+        print("values no button", values)
         self.values = values
         # Cria um botão
         button = QPushButton("Confirmar", self)
@@ -27,7 +27,7 @@ class button(QPushButton):
             # if self.first == '#':
             #     self.limpeza(url)
 
-            self.processing(url, str(self.qnt_coord), '200')
+            self.processing(url, str(self.qnt_coord), '200', )
 
 
     def open_dialog(self):
@@ -42,7 +42,7 @@ class button(QPushButton):
             "start limpeza_1.exe " + path
         )
 
-    def processing(self, url, qtd_coord, itmin):
+    def processing(self, url, qtd_coord, itmin, values):
         values = ''.join(self.values)
         string = 'start geral_interface"' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
         print(string)

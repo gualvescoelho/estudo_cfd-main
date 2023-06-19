@@ -17,77 +17,50 @@ from button import button
 # contar a quantidade coordenadas quando nao tiver #
 # criar entrada de dados para o itmin
 
-class MainWindow(QMainWindow):
+class checkbox(QMainWindow):
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(checkbox, self).__init__()
 
         self.setWindowTitle("My App")
-
+        
         self.layout = QVBoxLayout()
-        self.checkboxx = []
-        self.calling_string = []
         self.values = ""
         self.button = button(self.values)
-
-        self.layout.addWidget(self.button.drag_drop())
-
-        self.creation_checkbox()
-        self.layout.addWidget(self.button)
 
         self.widget = QWidget()
         
         self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
 
-    def creation_checkbox(self):
+    def creation_checkbox(self, parent):
         self.add_legendas("VELOCIDADES")
-        self.generate_checkbox("Velocidade x: ")
-        self.generate_checkbox("Velocidade y: ")
-        self.generate_checkbox("Velocidade z: ") 
-        self.generate_checkbox("Velocidades gerais: ")
+        self.generate_checkbox("Velocidade x: ", parent)
+        self.generate_checkbox("Velocidade y: ", parent)
+        self.generate_checkbox("Velocidade z: ", parent) 
+        self.generate_checkbox("Velocidades gerais: ", parent)
         
         self.add_legendas("COORDENADA")
-        self.generate_checkbox("Gerar arquivo com coordenadas? ")
+        self.generate_checkbox("Gerar arquivo com coordenadas? ", parent)
 
         self.add_legendas("GRAFICOS")
-        self.generate_checkbox("Velocidade grafico x:  ")
-        self.generate_checkbox("Velocidade grafico y:  ")
-        self.generate_checkbox("Velocidade grafico z:  ")
+        self.generate_checkbox("Velocidade grafico x:  ", parent)
+        self.generate_checkbox("Velocidade grafico y:  ", parent)
+        self.generate_checkbox("Velocidade grafico z:  ", parent)
 
         self.add_legendas("DESVIO PADRAO")
-        self.generate_checkbox("Calcular desvio padrão de x: ")
-        self.generate_checkbox("Calcular desvio padrão de y: ")
-        self.generate_checkbox("Calcular desvio padrão de z: ")
-
-
-    def show_values(self):
-        self.calling_string = []
-        for value in self.checkboxx:
-            self.values += str(int(value.isChecked()))+" "
-            self.calling_string.append(int(value.isChecked()))
+        self.generate_checkbox("Calcular desvio padrão de x: ", parent)
+        self.generate_checkbox("Calcular desvio padrão de y: ", parent)
+        self.generate_checkbox("Calcular desvio padrão de z: ", parent)
         
-
-    
-    def show_state(self, state):
-        print(state == Qt.CheckState.Checked.value)
-        print(state)
-        self.show_values()
-
-    def generate_layout(self):
-        for checkbox in self.checkboxx:
-            self.layout.addWidget(checkbox)
-
-        return self.layout
-
-    def generate_checkbox(self, text):
+    def generate_checkbox(self, text, parent):
         checkbox = QCheckBox()
         checkbox.setCheckState(Qt.CheckState.Checked)
         checkbox.setText(text)
         checkbox.setChecked(False)
-        checkbox.stateChanged.connect(self.show_state)
+        checkbox.stateChanged.connect(parent.show_values)
 
         self.layout.addWidget(checkbox)
-        self.checkboxx.append(checkbox)
+        parent.checkboxx.append(checkbox)
 
     def add_legendas(self, text):
         title = QLabel()
@@ -97,8 +70,3 @@ class MainWindow(QMainWindow):
     def confirm_button(self):
         self.button = button(self.values)
         self.layout.addLayout(self.button, self.str_values)
-
-app = QApplication(sys.argv)    
-window = MainWindow()
-window.show()
-app.exec()
