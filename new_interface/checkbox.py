@@ -6,8 +6,6 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QVBoxLayout,
     QWidget,
-    QFileDialog,
-    QPushButton,
     QLabel
 )
 
@@ -17,6 +15,7 @@ from button import button
 # verificar se o arquivo veio limpo ou sujo
 # ler as coordenadas e quantidade de linhas automaticamente e pgtar o itmin
 # contar a quantidade coordenadas quando nao tiver #
+# criar entrada de dados para o itmin
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -27,7 +26,8 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
         self.checkboxx = []
         self.calling_string = []
-        self.button = button()
+        self.values = ""
+        self.button = button(self.values)
 
         self.layout.addWidget(self.button.drag_drop())
 
@@ -63,14 +63,10 @@ class MainWindow(QMainWindow):
     def show_values(self):
         self.calling_string = []
         for value in self.checkboxx:
+            self.values += str(int(value.isChecked()))+" "
             self.calling_string.append(int(value.isChecked()))
         
-        self.str_values()
 
-    def str_values(self):
-        values = str(self.calling_string)
-        print(values)
-        return values
     
     def show_state(self, state):
         print(state == Qt.CheckState.Checked.value)
@@ -99,7 +95,7 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(title)
 
     def confirm_button(self):
-        self.button = button()
+        self.button = button(self.values)
         self.layout.addLayout(self.button, self.str_values)
 
 app = QApplication(sys.argv)    

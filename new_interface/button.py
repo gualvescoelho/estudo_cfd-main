@@ -1,13 +1,13 @@
 import os as op
 from PySide6.QtWidgets import QPushButton, QFileDialog
 from drag_drop import DragDropWidget as dp
-from urllib.parse import quote
 
 # Subclasse QMainWindow para criar a janela principal da aplicação
 class button(QPushButton):
-    def __init__(self):
+    def __init__(self, values):
         super().__init__()
-
+        print("values", values)
+        self.values = values
         # Cria um botão
         button = QPushButton("Confirmar", self)
 
@@ -21,7 +21,14 @@ class button(QPushButton):
         
         for url in self.dragdrop_widget.urls:
             # self.limpeza(url)
+            
             self.read_file(url)
+            # criação dessa regra de negocio
+            # if self.first == '#':
+            #     self.limpeza(url)
+
+            self.processing(url, str(self.qnt_coord), '200')
+
 
     def open_dialog(self):
         options = QFileDialog.Options()
@@ -35,11 +42,13 @@ class button(QPushButton):
             "start limpeza_1.exe " + path
         )
 
-    def processing(self, string, qtd_coord, itmin):
-        
-        op.system(
-            "start geral_interface " + string
-        )
+    def processing(self, url, qtd_coord, itmin):
+        values = ''.join(self.values)
+        string = 'start geral_interface"' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
+        print(string)
+        # op.system(
+        #     "start geral_interface " + string
+        # )
 
     def drag_drop(self):
         self.dragdrop_widget = dp()
@@ -62,6 +71,6 @@ class button(QPushButton):
         size = int(len.__len__()) - int(qtd_coord) - 2
 
         # Imprimir os caracteres lidos
-        print(qtd_coord)
-        print(first)
-        print(size)
+        self.qnt_coord = str(qtd_coord)
+        self.first = str(first)
+        self.lines = str(size)
