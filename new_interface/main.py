@@ -4,15 +4,12 @@ from checkbox import checkbox
 from button import button
 
 class MainWindow(QMainWindow):
-    
-    def confirm(self):
-         self.button.process(self)
-
     def __init__(self):
         super().__init__()
         # Layout principal
         self.layout = QVBoxLayout()
         self.checkboxx = []
+        self.values = ''
         self.setWindowTitle("Página Principal")
 
         self.checkbox = checkbox()
@@ -32,6 +29,9 @@ class MainWindow(QMainWindow):
         widget.setLayout(self.layout)
 
         self.setCentralWidget(widget)
+
+    def confirm(self):
+         self.button.process(self)
 
     def show_values(self):
             self.values = ''

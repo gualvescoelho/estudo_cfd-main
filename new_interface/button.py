@@ -39,9 +39,8 @@ class button(QPushButton):
         )
 
     def processing(self, url, qtd_coord, itmin, values):
-        print("self ", values)
         string = 'start geral_interface "' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
-        print(string)
+        
         # op.system(
         #     "start geral_interface " + string
         # )
@@ -56,11 +55,11 @@ class button(QPushButton):
             # informa o primeiro caracter do arquivo e volta ao inicio com fim de verificar as linhas
             first = arquivo.read(1)
             arquivo.seek(0)
-            
             read = arquivo.read()
-            qtd_coord = read.count('#') - 1
+            qtd_coord = self.getting_qtd_coord(read, first)
             arquivo.seek(0)
 
+            
             # retornar a quantidade de iterações e subtrair pela quantidade de coordenadas
             len = arquivo.readlines()
         
@@ -68,5 +67,21 @@ class button(QPushButton):
 
         # Imprimir os caracteres lidos
         self.qnt_coord = str(qtd_coord)
+        print("qtd_coord", self.qnt_coord)
         self.first = str(first)
         self.lines = str(size)
+
+    def getting_qtd_coord(self, file, first):
+        if first != '#':
+            i = 0
+            for x in file:
+                if x == '\n':
+                    a += 1
+                    i += 1
+                else:
+                    a = 0
+                if(a == 2):
+                    return i - 1
+        else:
+            qtd_coord = file.count('#')
+            return qtd_coord - 2
