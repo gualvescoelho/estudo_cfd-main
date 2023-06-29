@@ -14,14 +14,18 @@ class button(QPushButton):
     # Método de slot para lidar com o clique no botão
     def process(self, parent):
         self.open_dialog()
-        
+        op.system('mkdir "' + self.diretorio_saida + '/vel_media"')
+        op.system('mkdir "' + self.diretorio_saida + '/coordenadas"')
+        op.system('mkdir "' + self.diretorio_saida + '/vel_media_grafico"')
+        op.system('mkdir "' + self.diretorio_saida + '/desvio_padrao"')
+
         for url in self.dragdrop_widget.urls:
             # self.limpeza(url)
             
             self.read_file(url)
             # criação dessa regra de negocio
-            # if self.first == '#':
-            #     self.limpeza(url)
+            if self.first == '#':
+                self.limpeza(url)
 
             self.processing(url, str(self.qnt_coord), '200', parent.values)
 
@@ -39,11 +43,11 @@ class button(QPushButton):
         )
 
     def processing(self, url, qtd_coord, itmin, values):
-        string = 'start geral_interface "' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
-        
-        # op.system(
-        #     "start geral_interface " + string
-        # )
+        string = 'start new_c "' + url + '" '+ qtd_coord +" "+ itmin +" "+ self.lines +" "+ values + ' "' + self.diretorio_saida + '"'
+        print("string ", string)
+        op.system(
+            string
+        )
 
     def drag_drop(self):
         self.dragdrop_widget = dp()
@@ -67,7 +71,6 @@ class button(QPushButton):
 
         # Imprimir os caracteres lidos
         self.qnt_coord = str(qtd_coord)
-        print("qtd_coord", self.qnt_coord)
         self.first = str(first)
         self.lines = str(size)
 
@@ -84,4 +87,4 @@ class button(QPushButton):
                     return i - 1
         else:
             qtd_coord = file.count('#')
-            return qtd_coord - 2
+            return qtd_coord - 1

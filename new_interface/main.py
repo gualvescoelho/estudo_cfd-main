@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
         self.checkboxx = []
         self.values = ''
         self.setWindowTitle("Página Principal")
-
+        
         self.checkbox = checkbox()
         self.button = button(self)
 
