@@ -846,7 +846,6 @@ void leitura_arquivo(char nome_in[200], int qtd_coord, int itmin, int qtd_linhas
 	if(teste == '#')
 	{
 		printf("\nTEXTO SUJO, LIMPE O TEXTO!!\n");	
-		system("pause");	
 	}else
 	{
 	
