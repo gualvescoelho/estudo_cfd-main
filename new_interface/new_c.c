@@ -22,7 +22,7 @@ void exibir_coordenadas();
 void exibir_somas();
 void limpar_dados();
 void arq_saida(int coord, int linhas, int itmin, char  nome_in[250]);
-void ler_coluna(char  nome_in[250],int colunas, int linhas);
+void ler_coluna(char  nome_in[250], int colunas, int linhas, char nome_out[250], int coluna_desejada);
 void desvio_padrao(int qtd_colunas, int linhas, int itmin, int escolha, char  nome_in[250], char nome_out[250], int l, int desejado); 
 double media_ponto(int ponto, int escolha);
 
@@ -47,9 +47,10 @@ void arq_saida_desvio_padrao(int qtd_coord, int linhas, int itmin, char nome_in[
 
 void main(int argc, char *argv[])
 {
-	int qtd_coord, itmin, qtd_linhas,ok_vel_x, ok_vel_y, ok_vel_z, ok_vel_gerais, ok_coordenadas;
+	int qtd_coord, itmin, qtd_linhas,ok_vel_x, ok_vel_y, ok_vel_z, ok_vel_gerais, ok_coordenadas, ok_serie_temporal;
     int ok_grafico_x, ok_grafico_y, ok_grafico_z;
     int ok_desvio_padrao_x, ok_desvio_padrao_y, ok_desvio_padrao_z;
+	int coluna_desejada;
 	char nome_out[300];
 	
 	qtd_coord = atoi(argv[2]);
@@ -66,83 +67,89 @@ void main(int argc, char *argv[])
     ok_desvio_padrao_x = atoi(argv[13]);
     ok_desvio_padrao_y = atoi(argv[14]);
     ok_desvio_padrao_z = atoi(argv[15]);
-	
+	ok_serie_temporal = atoi(argv[16]);
+	coluna_desejada = atoi(argv[17]);
+
     leitura_arquivo(argv[1], qtd_coord, itmin, qtd_linhas);
 	
     if(ok_vel_x == 1)
     {
-        sprintf(nome_out,"%s/vel_media/vel_media_x", argv[16]);
+        sprintf(nome_out,"%s/vel_media/vel_media_x", argv[18]);
 	    arq_saida_vel_media_x(nome_out);
 	}
     
     if(ok_vel_y == 1)
     {
-        sprintf(nome_out,"%s/vel_media/vel_media_y", argv[16]);
+        sprintf(nome_out,"%s/vel_media/vel_media_y", argv[18]);
 	    arq_saida_vel_media_y(nome_out);
     }
 
     if(ok_vel_z == 1)
     {
-        sprintf(nome_out,"%s/vel_media/vel_media_z", argv[16]);
+        sprintf(nome_out,"%s/vel_media/vel_media_z", argv[18]);
         arq_saida_vel_media_z(nome_out);
     }
 	    
     if(ok_vel_gerais == 1)
     {
-        sprintf(nome_out,"%s/vel_media/vel_media", argv[16]);
+        sprintf(nome_out,"%s/vel_media/vel_media", argv[18]);
         arq_saida_vel_media_todas(nome_out);
     }
 	    
 	
     if(ok_coordenadas == 1)
     {
-        sprintf(nome_out,"%s/coordenadas/coordenadas", argv[16]);
+        sprintf(nome_out,"%s/coordenadas/coordenadas", argv[18]);
         arq_saida_coordenadas(nome_out);
     }
 	    
 	
     if(ok_grafico_x == 1)
     {
-        sprintf(nome_out,"%s/vel_media_grafico/geracao_grafico_x", argv[16]);
+        sprintf(nome_out,"%s/vel_media_grafico/geracao_grafico_x", argv[18]);
         arq_saida_grafico_x(nome_out);
     }
 	    
 
 	if(ok_grafico_y == 1)
     {
-        sprintf(nome_out,"%s/vel_media_grafico/geracao_grafico_y", argv[16]);
+        sprintf(nome_out,"%s/vel_media_grafico/geracao_grafico_y", argv[18]);
         arq_saida_grafico_y(nome_out);
     }
 	    
 	
 	if(ok_grafico_z == 1)
     {
-        sprintf(nome_out,"%s/vel_media_grafico/geracao_grafico_z", argv[16]);
+        sprintf(nome_out,"%s/vel_media_grafico/geracao_grafico_z", argv[18]);
         arq_saida_grafico_z(nome_out);
     }
 	    
 	
 	if(ok_desvio_padrao_x == 1) 
     {
-        sprintf(nome_out, "%s/desvio_padrao_x", argv[16]);
+        sprintf(nome_out, "%s/desvio_padrao_x", argv[18]);
         arq_saida_desvio_padrao(qtd_coord, qtd_linhas, itmin, argv[1], nome_out, 0, 1);
     }
 		
 		
-	if(ok_desvio_padrao_y == 2)
+	if(ok_desvio_padrao_y == 1)
     {
-        sprintf(nome_out, "%s/desvio_padrao_y", argv[16]);
+        sprintf(nome_out, "%s/desvio_padrao_y", argv[18]);
         arq_saida_desvio_padrao(qtd_coord, qtd_linhas, itmin, argv[1], nome_out, 0, 2);
     }
 		
 			
-	if(ok_desvio_padrao_z == 3)
+	if(ok_desvio_padrao_z == 1)
     {
-        sprintf(nome_out, "%s/desvio_padrao_z", argv[16]);
+        sprintf(nome_out, "%s/desvio_padrao_z", argv[18]);
         arq_saida_desvio_padrao(qtd_coord, qtd_linhas, itmin, argv[1], nome_out, 0, 3);
-    }
-		
+	}
 	
+	if(ok_serie_temporal == 1)
+    {
+		sprintf(nome_out,"%s/serie_temporal", argv[18]);
+		ler_coluna(argv[1], qtd_coord, qtd_linhas,nome_out,coluna_desejada);
+	}
 	/*
 	if(ok_correlacao == 1)
 		correlacao(desejado_1, desejado_2, ponto_1, ponto_2, sub,  nome_in[250], colunas, linhas, itmin, nome_out[250]);
@@ -643,27 +650,22 @@ double somatorio(int desejado, int escolha, int sub, char  nome_in[250],int colu
 	return soma;
 }
 */
-void ler_coluna(char  nome_in[250], int colunas, int linhas)
+void ler_coluna(char  nome_in[250], int colunas, int linhas, char nome_out[250], int coluna_desejada)
 {
-	int i = 0, coluna_desejada = 0, qtd_colunas = 0;
+	int i = 0, qtd_colunas = 0;
 	FILE *arq, *arq_out;
 	float x,y,z,tempo;
 	double c_x, c_z, c_y;	
-	char nome_out[250];
 	
 	arq = fopen(nome_in,"r+b");
 	
+	printf("No ler coluna %d",&coluna_desejada);
+	system("pause");
 	for( i = 0; i < colunas; i++) //passando quantas coordenadas tem
 	{
-	fscanf(arq,"%f %f %f", &x, &y, &z);
-	printf("%d.\t%f\t%f\t%f \n",i, x, y, z);
+		fscanf(arq,"%f %f %f", &x, &y, &z);
+		printf("%d.\t%f\t%f\t%f \n",i, x, y, z);
 	}
-	
-	/*printf("\n Escolha, pelo numero, de qual ponto deseja a serie: ");
-	scanf("%d",&coluna_desejada);
-	
-	printf("\n Escolha o nome de saida para essa serie temporal: ");
-	scanf("%s",nome_out);*/
 	
 	arq_out = fopen(nome_out,"w+b");
 	
