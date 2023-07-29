@@ -22,7 +22,7 @@ class new_interface_back():
             self.processing(path, self.qnt_coord, self.itmin, self.checkbox_values, self.diretorio_saida)
 
 # comando para realizar limpeza
-    def limpeza(self, url, qtd_coord, itmin, checkbox_values, diretorio_saida):
+    def limpeza(self, url, qtd_coord, itmin, checkbox_values, serie_temporal, diretorio_saida):
         # Sair com nome do arquivo na pasta selecionada
         file = diretorio_saida +"\\"+ op.path.basename(url) + '"'
         path = '"' + url + '" ' + " " + '"' + file
@@ -33,16 +33,16 @@ class new_interface_back():
         print("Path no limpeza: ")
         print(path)
         # ao terminar chamar o processing no arquivo novo
-        self.processing(file, qtd_coord, itmin, checkbox_values, diretorio_saida)
+        self.processing(file, qtd_coord, itmin, checkbox_values, serie_temporal, diretorio_saida)
 
 
     # chamada para o processamento
-    def processing(self, url, qtd_coord, itmin, checkbox_values, diretorio_saida):
+    def processing(self, url, qtd_coord, itmin, checkbox_values, serie_temporal, diretorio_saida):
             basename = op.path.basename(url)
             url = self.get_path_from_file(url)
             url = '"' + ''.join(url)+'/'+ basename + '"'
             print(url)
-            comando = 'start new_c '+ url +' '+ qtd_coord +' '+ itmin +' '+ self.lines +' '+ checkbox_values + ' "' + diretorio_saida + '"'
+            comando = 'start new_c '+ url +' '+ qtd_coord +' '+ itmin +' '+ self.lines +' '+ checkbox_values + ' '+ serie_temporal + ' "' + diretorio_saida + '"'
             # op.system(
             #     comando
             # )

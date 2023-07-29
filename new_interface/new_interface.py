@@ -156,6 +156,9 @@ class MainWindow(QMainWindow):
         itmin = self.input_itmin.text()
         serie_temporal = self.input_serie_temporal.text()
 
+        if(serie_temporal.__len__() < 0):
+            serie_temporal = 0
+
         if not self.drag_drop_widget.file_paths:
             self.show_warning_message("Nenhum arquivo foi inserido!")
             return
@@ -175,7 +178,7 @@ class MainWindow(QMainWindow):
         for path in self.drag_drop_widget.file_paths:
             string = path + str(itmin) + str(checkboxes_values) + self.selected_directory
             print(string)
-            self.nb.process(itmin, path, str(checkboxes_values), self.selected_directory)
+            self.nb.process(itmin, path, str(checkboxes_values), serie_temporal, self.selected_directory)
 
         # Aqui você pode fazer o que quiser com as informações preenchidas
         # Neste exemplo, estamos apenas imprimindo-as no console.
