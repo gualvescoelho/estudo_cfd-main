@@ -12,7 +12,7 @@ class TelaCalculos(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.label = QLabel("Cálculos e Estatísticas", self)
+        self.label = QLabel("Cálculos e Estatísticas\nNesta tela é possível utilizar os arquivos formatados para obter os dados disponíveis.\nAo confirmar ir no diretório escolhido e verificar os resultados\nPode informar mais do que um arquivo", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.label)
 

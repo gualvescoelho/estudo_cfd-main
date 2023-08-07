@@ -98,12 +98,12 @@ class new_interface_back():
         # Itere por cada conjunto de valores e plote os pontos usando scatter
         for i, conjunto in enumerate(conjuntos_de_valores):
             valores_x, valores_y = conjunto
-            plt.plot(valores_x, valores_y, marker='o', linestyle='-', label=f'Dados do Arquivo {i+1}')
+            plt.plot(valores_x, valores_y, marker='o', linestyle='-', label=f'Arquivo: {i+1}')
 
         # Personalização dos eixos
         plt.xlabel('Eixo X')
         plt.ylabel('Eixo Y')
-        plt.title('Gráfico Científico com Múltiplos Conjuntos')
+        plt.title('Velocidades na Simulação de Fluido')
 
         # Personalização da grade
         plt.grid(True, which='both', linestyle='--', linewidth=0.5, markersize=4)

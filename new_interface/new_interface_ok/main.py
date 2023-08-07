@@ -1,8 +1,9 @@
 import sys
 from PySide6.QtGui import QAction, QDragEnterEvent, QDropEvent
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QStackedWidget, QMenuBar, QLineEdit, QFileDialog, QMessageBox, QCheckBox
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QUrl
 
+import webbrowser
 import dragDrop as dp
 import formatacao as TelaLimpeza
 import Graficos as TelaGraficos
@@ -14,11 +15,9 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Ferramenta de pos-processamento")
 
-        # Criar o widget que contém as telas
         self.stacked_widget = QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
-        # Adicionar as telas ao widget stacked
         self.telaLimpeza = TelaLimpeza.TelaLimpeza()
         self.telaSerieTemporal = TelaSerieTemporal.TelaSerieTemporal()
         self.telaCalculos = TelaCalculos.TelaCalculos()
@@ -29,14 +28,11 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(self.telaCalculos)
         self.stacked_widget.addWidget(self.telaGraficos)
 
-        # Criar o menu superior
         menu_bar = QMenuBar(self)
 
-        # Adicionar o menu ao QMainWindow
         self.setMenuBar(menu_bar)
 
-        # Criar as ações para trocar de tela
-        action_first_screen = QAction("Formatação Arquivos postProcessing", self)
+        action_first_screen = QAction("Preparar Arquivos", self)
         action_first_screen.triggered.connect(lambda: self.stacked_widget.setCurrentWidget(self.telaLimpeza))
 
         action_second_screen = QAction("Serie Temporal", self)
@@ -48,11 +44,18 @@ class MainWindow(QMainWindow):
         action_fourth_screen = QAction("Gráficos", self)
         action_fourth_screen.triggered.connect(lambda: self.stacked_widget.setCurrentWidget(self.telaGraficos))
 
-        # Adicionar as ações ao menu
         menu_bar.addAction(action_first_screen)
         menu_bar.addAction(action_second_screen)
         menu_bar.addAction(action_third_screen)
         menu_bar.addAction(action_fourth_screen)
+
+        action_help = QAction("Ajuda", self)
+        action_help.triggered.connect(self.open_help_link)
+        menu_bar.addAction(action_help)
+
+    def open_help_link(self):
+        help_url = "https://github.com/gualvescoelho/estudo_cfd-main"
+        webbrowser.open(help_url)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

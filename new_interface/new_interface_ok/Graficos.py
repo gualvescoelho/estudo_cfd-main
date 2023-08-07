@@ -13,7 +13,7 @@ class TelaGraficos(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.label = QLabel("Gráficos", self)
+        self.label = QLabel("Gráficos\nNesta tela é possível gerar gráficos das simulações.\nAo adicionar os arquivos presentes no diretório vel_media_grafico\n é possível gerar o gráfico dos mesmos, podendo inserir mais do que um arquivo\ne obter o gráfico de uma ou mais simulações e comparar seus resultados.", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.label)
         

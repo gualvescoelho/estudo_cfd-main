@@ -12,7 +12,7 @@ class TelaSerieTemporal(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.label = QLabel("Serie Temporal", self)
+        self.label = QLabel("Serie Temporal\nNesta tela é possível inserir o arquivo já formatado e obter arquivos com suas respectivas séries temporais.\nOs arquivos de saída serão entregues repetindo o nome do arquivo de origem seguido da sua posição escolhida, \nexemplo: Pontos 1 5 2 3\nOs arquivos serão disponibilizados da maneira:\nnome_arquivo_st1, nome_arquivo_st2\n em sequencia, sendo seu ponto respectivo a sua ordem de escolha\nLogo o st2 corresponde ao ponto 5", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.label)
 

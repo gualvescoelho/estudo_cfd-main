@@ -12,7 +12,7 @@ class drap_drop(QWidget):
 
         self.label = QLabel("Arraste e solte arquivos aqui", self)
         self.label.setAlignment(Qt.AlignCenter)
-        self.label.setMinimumSize(200, 200)
+        self.label.setMinimumSize(200, 100)
         self.label.setStyleSheet("border: 2px dashed gray;")
 
         self.layout.addWidget(self.label)

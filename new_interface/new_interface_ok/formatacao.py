@@ -11,7 +11,7 @@ class TelaLimpeza(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.label = QLabel("Formatação Arquivos postProcessing", self)
+        self.label = QLabel("Preparar Arquivo\n Nesta tela é possível inserir o arquivo de saída oferecido pelo\nOpenFOAM no postProcessing e preparar o mesmo para uso.", self)
         self.label.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.label)
 
